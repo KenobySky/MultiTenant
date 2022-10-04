@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Login</title>
+
+        <!-- Bootstrap CSS -->
+        <link media="all" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css"  crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" integrity="sha512-T584yQ/tdRR5QwOpfvDfVQUidzfgc2339Lc8uBDtcp/wYu80d7jwBgAxbyMh0a9YM9F8N3tdErpFI8iaGx6x5g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.bundle.min.js" integrity="sha512-mULnawDVcCnsk9a4aG1QLZZ6rcce/jSzEGqUkeOLy0b6q0+T6syHrxlsAGH7ZVoqC93Pd0lBqd6WguPWih7VHA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        
+        <style>
+            .navbar-default {
+                background-color: #FFF;
+                border-color: #CCC;
+            }
+
+            .navbar {
+                background:#111;
+                border-color:#111;
+            }
+
+            @media(min-width:767px) {
+                .navbar {
+                    padding: 20px 0;
+                    -webkit-transition: background .5s ease-in-out,padding .5s ease-in-out;
+                    -moz-transition: background .5s ease-in-out,padding .5s ease-in-out;
+                    transition: background .5s ease-in-out,padding .5s ease-in-out;
+                }
+
+                .top-nav-collapse {
+                    padding: 0;
+                }
+            }
+
+            .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus {
+                background-color: #4F8DB3;
+                color: #fff;
+            }
+
+            .footer {
+                background: #222;
+                color: #a0a0a0;
+                padding: 0 20px 10px 20px;
+                border-top: 4px solid #4f8db3;
+                margin-top: 20px;
+                -webkit-box-shadow: 0 -1px 12px rgba(0, 0, 0, .4);
+                -moz-box-shadow: 0 -1px 12px rgba(0, 0, 0, .4);
+                box-shadow: 0 -1px 12px rgba(0, 0, 0, .4);
+                color: 0px -1px 12px rgba(0, 0, 0, 0.4);
+            }
+
+            .footer h3 {
+                color: #e4e4e4;
+                font-size: 1.3em;
+                border-bottom: 1px dotted #7c7c7c;
+            }
+
+            .footer ul {
+                padding: 0;
+            }
+
+            .footer-navigate-section li {
+                line-height: 20px!important;
+            }
+
+            .footer-stay-connected a {
+                text-align: left;
+                text-indent: -9999px;
+                display: block;
+                width: 115px;
+                height: 40px;
+                /*    background: url(../img/stay-connected.png);*/
+                -webkit-opacity: .5;
+                -moz-opacity: .5;
+                opacity: .5;
+                -webkit-transition: opacity .25s linear;
+                -moz-transition: opacity .25s linear;
+                -o-transition: opacity .25s linear;
+                -ms-transition: opacity .25s linear;
+                transition: opacity .25s linear;
+            }
+
+            .footer-stay-connected a:hover {
+                -webkit-opacity: 1;
+                -moz-opacity: 1;
+                opacity: 1;
+            }
+            .footer-stay-connected a.facebook {
+                background-position: -115px 0;
+            }
+            .footer-stay-connected a.twitter {
+                background-position: -230px 0;
+            }
+            .footer-stay-connected a.googleplus {
+                background-position: 0 0;
+            }
+            .footer-stay-connected li {
+                text-align: center;
+            }
+            .footer-copyright {
+                text-align: center;
+                color: #7c7c7c;
+                border-top: 1px dotted #7c7c7c;
+                padding-top: 10px;
+                font-size: .9em;
+            }
+
+            /* Section Title */
+            .section-title h1{
+                font-size:28px;
+                text-transform:uppercase;
+                font-weight:600;
+                margin-bottom:50px;
+            }
+
+            .section-title h1:before{
+                content: url('data:image/png;base64,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');
+                display: block;
+                float: left;
+                height: 25px;
+            }
+
+            @media(max-width:767px) {
+                .section-title h1{
+                    font-size:24px;
+                    text-transform:uppercase;
+                    font-weight:700;
+                    margin-left:30px;
+                }
+            }
+
+            canvas {
+
+                position: absolute;
+                top: 0;
+                left: 0;
+                background-color: white;
+                z-index: -999;
+            }
+
+        </style>
+
+    </head>
+    <body class="d-flex flex-column min-vh-100">
+
+        <header class="navbar navbar-dark bg-dark fixed-top navbar-expand-md" role="banner">
+            <div class="container">
+                <a class="navbar-brand" th:href="@{/index}">
+                    <img width="260" src="https://www.anaccarati.com.br/img/logos/logoClaro.webp" alt="A.Naccarati Naccarati Logo"/>
+                </a>
+
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="active nav-item"><a th:href="@{/index}" class="nav-link">Login</a>
+                        </li>
+                    </ul>
+                </div>
+
+            </div>
+        </header>
+
+        <section class="section d-flex justify-content-center" style="margin-top: 100px">
+            <div class="section-title">
+                <h1 class="text-white">Seja bem vindo</h1> 
+            </div>
+        </section>
+
+        <div>
+            <section class="section d-flex justify-content-center">
+                <div>
+                    <form name="form" th:action="@{/login}" method="post">               
+
+                        <div class="text-white section-title">
+                            <h3>Realize seu login</h3> 
+                        </div>
+
+                        
+                        <div th:if="${param.reason} != null and ${param.reason[0]} == 'banned'" class="alert alert-danger" role="alert">    
+                            Excedida tentativas máximas de login.
+                            <br/>
+                            Tente novamente em 24 horas.
+                        </div>
+                        
+                        <div th:if="${param.error} != null AND ${param.reason} == null " class="alert alert-danger" role="alert">    
+                            E-mail ou senha incorreto!
+                        </div>
+
+                        <div th:if="${param.logout}" class="alert alert-success" role="alert"> 
+                            Você saiu do sistema (log-out)!
+                        </div>
+
+
+                        <div>
+                            <div  class="form-group">
+                                <label class="text-white" for="username"><strong>E-mail</strong></label>
+                                <input autocomplete="username" class="form-control" type="text" id="username" name="username"/>    
+                            </div>
+
+                            <div class="form-group">
+                                <label class="text-white" for="password"><strong>Senha</strong></label>
+                                <input autocomplete="current-password" class="form-control" type="password" id="password" name="password"/>   
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-lg btn-primary btn-block">Entrar</button>
+                            </div>
+                        </div>
+
+
+                    </form>
+
+
+                </div>
+            </section>
+        </div>
+
+
+
+
+
+
+    </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+    <head>
+        <meta charset="UTF-8"/>
+        <title>Bem Vindo</title>
+
+        <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+        <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+
+    </head>
+    <body>
+        <div class="wrapper">
+		
+            <div class="page-wrapper">
+                <div class="page-content-wrapper">
+                    <div class="page-content">
+                        <h1>Sistema</h1>
+
+                        <div>
+                            <form th:action="@{/logout}" method="GET">
+                                <div class="row">
+                                    <div class="col-md-12">
+
+                                        Bem Vindo, <b>[[${#request.userPrincipal.principal.username}]] </b>
+                                        <span sec:authentication="principal.authorities"></span>
+
+                                        <input type="submit" class="btn btn-danger" value="Log Out - Sair" />
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </body>
+</html>
